@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - MedSafe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="[cdnjs.cloudflare.com](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body class="settings-page">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-logo">
+                <i class="fas fa-pills"></i>
+                <span>MedSafe</span>
+            </a>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="dashboard.html#medicines" class="nav-item">
+                <i class="fas fa-pills"></i>
+                <span>My Medicines</span>
+            </a>
+            <a href="dashboard.html#history" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="dashboard.html#reports" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="contact.html" class="nav-item">
+                <i class="fas fa-headset"></i>
+                <span>Support</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="emergency-btn" onclick="showEmergencyModal()">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="page-title">Settings</h1>
+            <div class="topbar-actions">
+                <button class="action-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <div class="user-menu" id="userMenu">
+                    <button class="user-btn" onclick="toggleUserMenu()">
+                        <div class="user-avatar" id="userAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="settings.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                        <hr>
+                        <a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+            <div class="settings-grid">
+                <!-- Profile Settings -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-user-circle"></i> Profile Settings</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="profileForm" onsubmit="saveProfile(event)">
+                                <div class="profile-avatar-section">
+                                    <div class="profile-avatar" id="profileAvatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('avatarInput').click()">
+                                        <i class="fas fa-camera"></i> Change Photo
+                                    </button>
+                                    <input type="file" id="avatarInput" accept="image/*" hidden onchange="handleAvatarChange(event)">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profileFirstName">First Name</label>
+                                        <input type="text" id="profileFirstName" placeholder="John">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileLastName">Last Name</label>
+                                        <input type="text" id="profileLastName" placeholder="Doe">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileEmail">Email Address</label>
+                                    <input type="email" id="profileEmail" disabled>
+                                    <small>Email cannot be changed</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profilePhone">Phone Number</label>
+                                    <input type="tel" id="profilePhone" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileTimezone">Timezone</label>
+                                    <select id="profileTimezone">
+                                        <option value="America/New_York">Eastern Time (ET)</option>
+                                        <option value="America/Chicago">Central Time (CT)</option>
+                                        <option value="America/Denver">Mountain Time (MT)</option>
+                                        <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                                        <option value="Europe/London">London (GMT)</option>
+                                        <option value="Europe/Paris">Paris (CET)</option>
+                                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-bell"></i> Notification Settings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Push Notifications</h4>
+                                    <p>Receive browser push notifications for reminders</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="pushNotifications" onchange="togglePushNotifications()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Sound Alerts</h4>
+                                    <p>Play sound when reminder is triggered</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="soundAlerts" checked onchange="saveSetting('soundAlerts', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Reminder Sound</h4>
+                                    <p>Choose your preferred alarm sound</p>
+                                </div>
+                                <select id="reminderSound" onchange="changeReminderSound()">
+                                    <option value="default">Default Chime</option>
+                                    <option value="gentle">Gentle Bell</option>
+                                    <option value="urgent">Urgent Alarm</option>
+                                    <option value="nature">Nature Sound</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Test Sound</h4>
+                                    <p>Preview your selected alarm sound</p>
+                                </div>
+                                <button class="btn btn-outline btn-sm" onclick="testAlarmSound()">
+                                    <i class="fas fa-play"></i> Play
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Snooze Duration</h4>
+                                    <p>Default snooze time for reminders</p>
+                                </div>
+                                <select id="snoozeDuration" onchange="saveSetting('snoozeDuration', this.value)">
+                                    <option value="5">5 minutes</option>
+                                    <option value="10">10 minutes</option>
+                                    <option value="15">15 minutes</option>
+                                    <option value="30">30 minutes</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Email Reminders</h4>
+                                    <p>Receive daily email summary of medications</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="emailReminders" onchange="saveSetting('emailReminders', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-palette"></i> Display Settings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Dark Mode</h4>
+                                    <p>Switch between light and dark theme</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkMode" onchange="toggleDarkMode()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Compact View</h4>
+                                    <p>Show more medicines in less space</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="compactView" onchange="saveSetting('compactView', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Time Format</h4>
+                                    <p>Choose 12-hour or 24-hour format</p>
+                                </div>
+                                <select id="timeFormat" onchange="saveSetting('timeFormat', this.value)">
+                                    <option value="12">12-hour (AM/PM)</option>
+                                    <option value="24">24-hour</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-ambulance"></i> Emergency Contact</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="emergencyForm" onsubmit="saveEmergencySettings(event)">
+                                <div class="form-group">
+                                    <label for="emergencyContactName">Contact Name</label>
+                                    <input type="text" id="emergencyContactName" placeholder="Emergency contact name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="emergencyContactPhone">Phone Number</label>
+                                    <input type="tel" id="emergencyContactPhone" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="emergencyContactRelation">Relationship</label>
+                                    <select id="emergencyContactRelation">
+                                        <option value="">Select relationship</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="child">Child</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="friend">Friend</option>
+                                        <option value="doctor">Doctor</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Emergency Contact
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-shield-alt"></i> Security</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="passwordForm" onsubmit="changePassword(event)">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <div class="input-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="currentPassword" placeholder="Enter current password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <div class="input-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="newPassword" placeholder="Enter new password" minlength="8">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmNewPassword">Confirm New Password</label>
+                                    <div class="input-icon">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-key"></i> Change Password
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data & Privacy -->
+                <div class="settings-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-database"></i> Data & Privacy</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Export Data</h4>
+                                    <p>Download all your medication data</p>
+                                </div>
+                                <button class="btn btn-outline btn-sm" onclick="exportData()">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Clear History</h4>
+                                    <p>Delete all medication history records</p>
+                                </div>
+                                <button class="btn btn-outline btn-sm btn-danger" onclick="confirmClearHistory()">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                            <div class="setting-item danger">
+                                <div class="setting-info">
+                                    <h4>Delete Account</h4>
+                                    <p>Permanently delete your account and all data</p>
+                                </div>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDeleteAccount()">
+                                    <i class="fas fa-user-times"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-overlay" onclick="closeConfirmModal()"></div>
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 id="confirmTitle">Confirm Action</h2>
+                <button class="modal-close" onclick="closeConfirmModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

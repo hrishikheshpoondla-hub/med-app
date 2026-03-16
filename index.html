@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Safety in the Digital Age</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="[cdnjs.cloudflare.com](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body class="landing-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-pills"></i>
+                <span>MedSafe</span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="login.html?mode=signup" class="btn btn-primary">Sign Up</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Your Personal <span class="highlight">Medication</span> Safety Assistant</h1>
+                <p>Never miss a dose again. Our intelligent reminder system keeps you safe with timely notifications, overdose warnings, and comprehensive medication tracking.</p>
+                <div class="hero-buttons">
+                    <a href="login.html?mode=signup" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i> Get Started Free
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-lg">
+                        <i class="fas fa-play-circle"></i> Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1M+</span>
+                        <span class="stat-label">Reminders Sent</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <i class="fas fa-bell"></i>
+                        <span>Medication Reminder</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="medicine-item">
+                            <div class="medicine-icon" style="background: #e3f2fd;">
+                                <i class="fas fa-capsules" style="color: #1976d2;"></i>
+                            </div>
+                            <div class="medicine-info">
+                                <h4>Vitamin D3</h4>
+                                <p>1000 IU • 8:00 AM</p>
+                            </div>
+                            <button class="btn btn-success btn-sm">Take</button>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-icon" style="background: #fce4ec;">
+                                <i class="fas fa-tablets" style="color: #c2185b;"></i>
+                            </div>
+                            <div class="medicine-info">
+                                <h4>Aspirin</h4>
+                                <p>100mg • 12:00 PM</p>
+                            </div>
+                            <span class="badge badge-warning">Upcoming</span>
+                        </div>
+                        <div class="medicine-item">
+                            <div class="medicine-icon" style="background: #e8f5e9;">
+                                <i class="fas fa-prescription-bottle" style="color: #388e3c;"></i>
+                            </div>
+                            <div class="medicine-info">
+                                <h4>Metformin</h4>
+                                <p>500mg • 6:00 PM</p>
+                            </div>
+                            <span class="badge badge-secondary">Later</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg xmlns="[w3.org](http://www.w3.org/2000/svg)" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Features</span>
+                <h2>Everything You Need for Medication Safety</h2>
+                <p>Comprehensive tools designed to keep you healthy and on track</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Smart Reminders</h3>
+                    <p>Get timely notifications with customizable alarm sounds. Never miss a dose with persistent reminders until you confirm.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Overdose Protection</h3>
+                    <p>Intelligent warnings prevent accidental overdose by tracking your medication frequency and dosage patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon success">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>History Tracking</h3>
+                    <p>Complete medication history with adherence statistics. Download reports for your healthcare provider.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon info">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your medication schedule anywhere. Fully responsive design works on all devices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Dark Mode</h3>
+                    <p>Easy on the eyes with a beautiful dark theme. Perfect for nighttime medication reminders.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon danger">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Emergency Contact</h3>
+                    <p>Quick access to emergency contacts and support. One tap to reach help when you need it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">How It Works</span>
+                <h2>Get Started in 3 Simple Steps</h2>
+                <p>Setting up your medication safety system is quick and easy</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create Your Account</h3>
+                        <p>Sign up for free in seconds. Your data is encrypted and secure.</p>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Add Your Medications</h3>
+                        <p>Enter your medicines with dosage, timing, and frequency.</p>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Stay Safe & On Track</h3>
+                        <p>Receive reminders and track your medication adherence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <span class="section-tag">About Us</span>
+                    <h2>Committed to Your Health & Safety</h2>
+                    <p>Medication Safety in the Digital Age was born from a simple idea: everyone deserves a reliable system to manage their medications safely.</p>
+                    <p>Our team of healthcare professionals and technologists work together to create tools that prevent medication errors, improve adherence, and ultimately save lives.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>HIPAA Compliant</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-lock"></i>
+                            <span>End-to-End Encryption</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-user-md"></i>
+                            <span>Healthcare Approved</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Our Mission</h3>
+                        <p>To eliminate medication errors and empower individuals to take control of their health through innovative digital solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Take Control of Your Medication Safety?</h2>
+                <p>Join thousands of users who trust MedSafe for their daily medication management.</p>
+                <a href="login.html?mode=signup" class="btn btn-white btn-lg">
+                    <i class="fas fa-user-plus"></i> Create Free Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-pills"></i>
+                        <span>MedSafe</span>
+                    </a>
+                    <p>Your trusted partner in medication safety and management.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">FAQ</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#about">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Blog</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">HIPAA Compliance</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MedSafe - Medication Safety in the Digital Age. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        // Mobile navigation toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
