@@ -5,7 +5,7 @@ console.log('dashboard.js loaded');
 window.showAddMedicineModal = function() { return showAddMedicineModal(); };
 window.editMedicine = function(id) { return editMedicine(id); };
 window.closeMedicineModal = function() { return closeMedicineModal(); };
-window.saveMedicine = function(e) { return saveMedicine(e); };
+// saveMedicine will be handled via event listener
 window.deleteMedicine = function(id) { return deleteMedicine(id); };
 window.takeMedicine = function(id) { return takeMedicine(id); };
 window.markAllTaken = function() { return markAllTaken(); };
@@ -63,6 +63,10 @@ async function initializeDashboard() {
         
         // Start reminder checker
         startReminderChecker();
+        
+        // Attach form listeners
+        attachFormListeners();
+        
         console.log('Dashboard initialized successfully.');
     } catch (error) {
         console.error('Error during dashboard initialization:', error);
@@ -124,6 +128,16 @@ function initializeSidebar() {
             }
         }
     });
+}
+
+// Attach form listeners programmatically
+function attachFormListeners() {
+    const medicineForm = document.getElementById('medicineForm');
+    if (medicineForm) {
+        // Remove any existing listener and add new one
+        medicineForm.removeEventListener('submit', saveMedicine);
+        medicineForm.addEventListener('submit', saveMedicine);
+    }
 }
 
 // Initialize theme
@@ -293,11 +307,16 @@ function shouldTakeMedicineToday(medicine, date) {
 
 // Get medicine status for today
 function getMedicineStatus(medicine) {
+    if (!medicine.time) return 'pending';
+    
     const today = new Date().toDateString();
     const now = new Date();
-    const [hours, minutes] = medicine.time.split(':').map(Number);
+    
+    const parsed = parseTimeString(medicine.time);
+    if (!parsed) return 'pending';
+    
     const medicineTime = new Date();
-    medicineTime.setHours(hours, minutes, 0, 0);
+    medicineTime.setHours(parsed.hours, parsed.minutes, 0, 0);
     
     // Check if taken today
     if (medicine.takenDates && medicine.takenDates[today]) {
@@ -527,7 +546,14 @@ document.getElementById('frequency')?.addEventListener('change', function() {
 
 // Save medicine
 async function saveMedicine(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
+    console.log('Saving medicine...');
+    
+    const submitBtn = document.getElementById('saveMedicineBtn');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    }
     
     const medicineId = document.getElementById('medicineId').value;
     const name = document.getElementById('medicineName').value;
@@ -537,7 +563,9 @@ async function saveMedicine(event) {
     const frequency = document.getElementById('frequency').value;
     const instructions = document.getElementById('instructions').value;
     const maxDailyDose = document.getElementById('maxDailyDose').value;
-    const color = document.querySelector('input[name="color"]:checked').value;
+    
+    const colorChecked = document.querySelector('input[name="color"]:checked');
+    const color = colorChecked ? colorChecked.value : '#1976d2';
     
     // Get custom days if applicable
     let days = [];
@@ -560,27 +588,36 @@ async function saveMedicine(event) {
     };
     
     try {
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const medicinesRef = userRef.collection('medicines');
+        
         if (medicineId) {
             // Update existing
-            await db.collection('users').doc(currentUser.uid)
-                .collection('medicines').doc(medicineId)
-                .update(medicineData);
+            await medicinesRef.doc(medicineId).update(medicineData);
             showToast('success', 'Updated', 'Medicine updated successfully');
         } else {
             // Create new
             medicineData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
             medicineData.takenDates = {};
-            await db.collection('users').doc(currentUser.uid)
-                .collection('medicines').add(medicineData);
+            await medicinesRef.add(medicineData);
             showToast('success', 'Added', 'Medicine added successfully');
         }
         
         closeMedicineModal();
         await loadMedicines();
-        await initializeCharts();
+        
+        // Refresh charts
+        if (typeof initializeCharts === 'function') {
+            await initializeCharts();
+        }
     } catch (error) {
         console.error('Error saving medicine:', error);
-        showToast('error', 'Error', 'Failed to save medicine');
+        showToast('error', 'Error', 'Failed to save medicine: ' + error.message);
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Medicine';
+        }
     }
 }
 
@@ -1134,10 +1171,36 @@ function applyUserSettings(settings) {
 }
 
 // Utility functions
+function parseTimeString(time) {
+    if (!time) return null;
+    
+    let hours, minutes;
+    const timeStr = time.toLowerCase();
+    
+    if (timeStr.includes('am') || timeStr.includes('pm')) {
+        const [timePart, meridiem] = timeStr.split(/\s*(?=[ap]m)/i);
+        const [h, m] = (timePart || '').split(':').map(Number);
+        hours = h;
+        minutes = m || 0;
+        
+        if (meridiem && meridiem.includes('pm') && hours < 12) hours += 12;
+        if (meridiem && meridiem.includes('am') && hours === 12) hours = 0;
+    } else {
+        const parts = timeStr.split(':').map(Number);
+        hours = parts[0];
+        minutes = parts[1] || 0;
+    }
+    
+    if (isNaN(hours) || isNaN(minutes)) return null;
+    return { hours, minutes };
+}
+
 function formatTime(time) {
-    const [hours, minutes] = time.split(':');
+    const parsed = parseTimeString(time);
+    if (!parsed) return time;
+    
     const date = new Date();
-    date.setHours(parseInt(hours), parseInt(minutes));
+    date.setHours(parsed.hours, parsed.minutes);
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
