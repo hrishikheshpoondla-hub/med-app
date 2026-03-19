@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Load settings
     await loadSettings();
+    
+    // Attach form listeners
+    attachFormListeners();
 });
 
 // Initialize sidebar (same as dashboard)
@@ -26,6 +29,24 @@ function initializeSidebar() {
     sidebarClose?.addEventListener('click', () => {
         sidebar.classList.remove('active');
     });
+}
+
+// Attach form listeners programmatically
+function attachFormListeners() {
+    const profileForm = document.getElementById('profileForm');
+    if (profileForm) {
+        profileForm.addEventListener('submit', saveProfile);
+    }
+    
+    const emergencyForm = document.getElementById('emergencyForm');
+    if (emergencyForm) {
+        emergencyForm.addEventListener('submit', saveEmergencySettings);
+    }
+    
+    const passwordForm = document.getElementById('passwordForm');
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', changePassword);
+    }
 }
 
 // Load user settings

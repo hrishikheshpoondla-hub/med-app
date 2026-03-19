@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
             strengthBar.className = 'password-strength ' + strength;
         });
     }
+    
+    // Attach form listeners
+    attachFormListeners();
 });
 
 function checkPasswordStrength(password) {
@@ -303,4 +306,22 @@ async function requireAuth() {
         return null;
     }
     return user;
+}
+
+// Attach form listeners programmatically
+function attachFormListeners() {
+    const loginForm = document.getElementById('loginFormElement');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    const signupForm = document.getElementById('signupFormElement');
+    if (signupForm) {
+        signupForm.addEventListener('submit', handleSignup);
+    }
+    
+    const forgotPasswordForm = document.getElementById('forgotPasswordFormElement');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', handleForgotPassword);
+    }
 }

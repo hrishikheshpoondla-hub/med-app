@@ -27,18 +27,23 @@ function checkReminders() {
     if (!medicines || medicines.length === 0) return;
     
     const now = new Date();
-    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
     const today = now.toDateString();
     
     medicines.forEach(medicine => {
         // Check if medicine should be taken today
-        if (!shouldTakeMedicineToday(medicine, now)) return;
+        if (typeof shouldTakeMedicineToday === 'function' && !shouldTakeMedicineToday(medicine, now)) return;
         
         // Check if already taken
         if (medicine.takenDates && medicine.takenDates[today]) return;
         
-        // Check if it's time
-        if (medicine.time === currentTime) {
+        // Use robust parsing for time comparison
+        const parsed = typeof parseTimeString === 'function' ? parseTimeString(medicine.time) : null;
+        if (!parsed) return;
+        
+        // Check if it's currently the scheduled minute
+        if (parsed.hours === currentHours && parsed.minutes === currentMinutes) {
             triggerReminder(medicine);
         }
     });
