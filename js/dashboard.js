@@ -419,6 +419,13 @@ async function takeMedicine(medicineId) {
         updateStats();
         renderReminders();
         
+        // Update charts to reflect new history
+        try {
+            await initializeCharts();
+        } catch (e) {
+            console.error('Failed to update charts after taking medicine');
+        }
+        
         showToast('success', 'Medicine Taken', `${medicine.name} marked as taken.`);
     } catch (error) {
         console.error('Error taking medicine:', error);
@@ -570,6 +577,7 @@ async function saveMedicine(event) {
         
         closeMedicineModal();
         await loadMedicines();
+        await initializeCharts();
     } catch (error) {
         console.error('Error saving medicine:', error);
         showToast('error', 'Error', 'Failed to save medicine');
@@ -587,6 +595,7 @@ async function deleteMedicine(medicineId) {
         
         showToast('success', 'Deleted', 'Medicine deleted successfully');
         await loadMedicines();
+        await initializeCharts();
     } catch (error) {
         console.error('Error deleting medicine:', error);
         showToast('error', 'Error', 'Failed to delete medicine');
@@ -609,6 +618,9 @@ async function markAllTaken() {
     for (const med of pendingMedicines) {
         await takeMedicine(med.id);
     }
+    
+    // Charts will be updated by individual takeMedicine calls, 
+    // but we can call it once more to be sure if needed.
 }
 
 // Filter medicines
