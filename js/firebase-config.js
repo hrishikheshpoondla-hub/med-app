@@ -1,12 +1,12 @@
 // Firebase Configuration
 // Replace with your Firebase project credentials
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAl4OW8qWAZCucfypqYCbYsaxPgfaKQoh0",
+    authDomain: "medsafe-app-14f9b.firebaseapp.com",
+    projectId: "medsafe-app-14f9b",
+    storageBucket: "medsafe-app-14f9b.firebasestorage.app",
+    messagingSenderId: "363606569248",
+    appId: "1:363606569248:web:ba17ca49a44005ee39a745"
 };
 
 // Initialize Firebase
